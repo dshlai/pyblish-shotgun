@@ -4,8 +4,9 @@ import sys
 from lib import (get_primary_pipeline_config,
                  platform_lookup,
                  append_pipeline_sgtk,
-                 get_sg,
                  get_tk)
+
+from api import (get_api_data, get_sg_with_key, get_sg_with_user)
 
 test_path = r"P:\projects\CM\shots\sq00\sq00_sh0560\light".replace("/", "\\")
 
@@ -47,8 +48,20 @@ def test_get_prime_pc():
 
 
 def test_host():
-    from shotgun_api3 import Shotgun
-    fail_case_sg1 = Shotgun("", "", "")
+    assert get_sg_with_key(*get_api_data())
+
+
+def test_sg_with_user():
+    from getpass import getpass
+    host, script, key = get_api_data()
+    #user = raw_input("User: ")
+    #passwd = getpass()
+    user = "test_user"
+    passwd = "some pass"
+    sg_inst = get_sg_with_user(host=host, login=user, password=passwd)
+    # use test case should fail
+    result = sg_inst.find("Shot", [], [])
+    assert result
 
 
 if __name__ == '__main__':

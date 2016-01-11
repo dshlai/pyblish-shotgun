@@ -27,7 +27,7 @@ def get_api_data(__api_file=""):
     with open(__api_file, 'r') as reader:
         data = yaml.load(reader)
 
-    return data.get('api_key'), data.get('api_script'), data.get('host')
+    return data.get('host'), data.get('api_script'), data.get('api_key')
 
 
 def get_sg_with_user(host="", login="", password=""):
@@ -70,3 +70,7 @@ def get_sg_with_key(host="", script="", key=""):
     """
 
     return Shotgun(host, script, key)
+
+def get_sg_with_session_token(token=""):
+    # TODO: Will need to ask Shotgun Dev Team about getting session token (if it is available outside Toolkit)
+    pass

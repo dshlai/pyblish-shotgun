@@ -7,13 +7,13 @@ import sys
 import collections
 import yaml
 
+import api
+
 from shotgun_api3 import Shotgun
 
 platform_lookup = {"linux2": "linux_path", "win32": "windows_path", "darwin": "mac_path"}
 
 __PIPELINE_CONFIG_PATH__ = ""
-
-api_file = "U:/pipeline_configurations/StudioCore/config/core/shotgun.yml"  # change the name of the api key file
 
 
 def get_api_data():
@@ -21,10 +21,7 @@ def get_api_data():
     function that reads secure api data such as key, script name, and host url.
     :return:
     """
-    with open(api_file, 'r') as reader:
-        data = yaml.load(reader)
-
-    return data.get('api_key'), data.get('api_script'), data.get('host')
+    return api.get_api_data()
 
 
 def pipeline_config_from_path(sg, path):
@@ -90,22 +87,15 @@ def get_tk(path):
     return tk
 
 
-def get_sg():
-    """
-    Get Shotgun API object
-    :return:
-    """
-    key, script, host = get_api_data()
-    return Shotgun(host, script, key)
-
-
 def get_primary_pipeline_config(path):
     """
     Return Primary pipeline configuration path from a given path
     :param path:
     :return:
     """
-    pipeline_configs = pipeline_config_from_path(get_sg(), path)
+    sg_api_inst = api.get_sg_with_key(*api.get_api_data())
+    pipeline_configs = pipeline_config_from_path(sg_api_inst, path)
+
     if pipeline_configs:
         for pc in pipeline_configs:
             if pc.get('code') == 'Primary':
@@ -119,7 +109,8 @@ def pipeline_config_lookup(path, pipeline_code):
     :param pipeline_code:
     :return:
     """
-    pipeline_configs = pipeline_config_from_path(get_sg(), path)
+    sg_api_inst = api.get_sg_with_key(*api.get_api_data())
+    pipeline_configs = pipeline_config_from_path(sg_api_inst, path)
 
     if pipeline_configs:
         for pc in pipeline_configs:
