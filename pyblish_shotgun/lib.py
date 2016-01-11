@@ -87,6 +87,14 @@ def get_tk(path):
     return tk
 
 
+def get_custom_tk(path, custom_pc_path):
+    if os.path.isdir(custom_pc_path):
+        append_pipeline_sgtk(custom_pc_path)
+        sgtk = __import__('sgtk')
+        tk = sgtk.sgtk_from_path(path)
+        return tk
+
+
 def get_primary_pipeline_config(path):
     """
     Return Primary pipeline configuration path from a given path
