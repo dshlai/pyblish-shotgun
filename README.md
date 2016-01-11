@@ -4,13 +4,10 @@
 
   - Shotgun API: version 3.0.x
   - Shotgun Toolkit (tk-core): 0.16.x
-<<<<<<< HEAD
+
   - PyYAML (if you use the default shotgun.yml)
 
 Shotgun API package must be in your PYTHONPATH before execution. 
-=======
-  - PyYAML (if you use the default Shotgun api key location)
->>>>>>> refs/remotes/origin/master
 
 You should have a working Shotgun Toolkit pipeline configuration installed and setup somewhere in a accessible location. The extension do not work without a proper pipeline configuration. Tests will fail without one. Please refer to Shotgun Toolkit Documentation on how to setup Shotgun Toolkit.
 
