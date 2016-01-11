@@ -44,7 +44,6 @@ def pipeline_config_from_path(sg, path):
                                ["id", "code", "windows_path", "linux_path", "mac_path", "project",
                                 "project.Project.tank_name"])
 
-
     # extract all storages for the current os
     storages = []
 
