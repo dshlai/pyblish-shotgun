@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+__author__ = 'dennissh'
+>>>>>>> refs/remotes/origin/master
 
 VERSION_MAJOR = 0
 VERSION_MINOR = 1
